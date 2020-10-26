@@ -1,0 +1,651 @@
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 06:40:15,065 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 06:40:15,074 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 06:40:15,076 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 06:40:15,079 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) logs/moonraker.log
+2020-10-26 06:40:15,081 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 06:40:15,081 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 06:40:15,082 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 06:40:15,082 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 06:40:15,090 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 06:40:15,090 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 06:40:15,091 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 06:40:15,091 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 06:40:15,092 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 06:40:15,092 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 06:40:15,093 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 06:40:15,112 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 06:40:15,113 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 06:40:15,113 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 06:40:15,114 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 06:40:15,115 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 06:40:15,115 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 06:40:15,116 [file_manager.py:register_directory()] - 
+Supplied path (/moonraker/klipper_config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 06:40:15,116 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 06:40:15,116 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker/moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker/moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker/moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker/moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 06:40:15,117 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 06:54:35,850 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 06:54:35,860 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 06:54:35,862 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 06:54:35,866 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) logs/moonraker.log
+2020-10-26 06:54:35,867 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 06:54:35,867 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 06:54:35,868 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 06:54:35,868 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 06:54:35,876 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 06:54:35,877 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 06:54:35,878 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 06:54:35,878 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 06:54:35,879 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 06:54:35,879 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 06:54:35,879 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 06:54:35,900 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 06:54:35,900 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 06:54:35,901 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 06:54:35,902 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 06:54:35,902 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 06:54:35,902 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 06:54:35,903 [file_manager.py:register_directory()] - 
+Supplied path (/moonraker/klipper_config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 06:54:35,904 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker/moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 06:54:35,904 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker/moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker/moonraker/moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker/moonraker/moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker/moonraker/moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker/moonraker/moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 06:54:35,905 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 07:42:39,507 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 07:42:39,518 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 07:42:39,521 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) logs/moonraker.log
+2020-10-26 07:42:39,522 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 07:42:39,523 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 07:42:39,524 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 07:42:39,524 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 07:42:39,532 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 07:42:39,532 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 07:42:39,533 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 07:42:39,534 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 07:42:39,534 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 07:42:39,535 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 07:42:39,535 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 07:42:39,555 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 07:42:39,556 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 07:42:39,556 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 07:42:39,557 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 07:42:39,557 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 07:42:39,558 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 07:42:39,559 [file_manager.py:register_directory()] - 
+Supplied path (/moonraker/klipper_config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 07:42:39,559 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker/moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 07:42:39,559 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker/moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker/moonraker/moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker/moonraker/moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker/moonraker/moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker/moonraker/moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 07:42:39,560 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 07:46:05,696 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 07:46:05,706 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 07:46:05,708 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 07:46:05,711 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /moonraker/logs/moonraker.log
+2020-10-26 07:46:05,712 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 07:46:05,713 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 07:46:05,713 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 07:46:05,714 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 07:46:05,722 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 07:46:05,722 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 07:46:05,723 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 07:46:05,723 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 07:46:05,724 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 07:46:05,724 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 07:46:05,725 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 07:46:05,745 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 07:46:05,745 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 07:46:05,746 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 07:46:05,746 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 07:46:05,747 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 07:46:05,747 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 07:46:05,748 [file_manager.py:register_directory()] - 
+Supplied path (/moonraker/klipper_config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 07:46:05,749 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 07:46:05,749 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 07:46:05,749 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 07:50:35,323 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 07:50:35,333 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 07:50:35,335 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 07:50:35,338 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /moonraker/logs/moonraker.log
+2020-10-26 07:50:35,339 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 07:50:35,340 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 07:50:35,340 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 07:50:35,341 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 07:50:35,349 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 07:50:35,350 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 07:50:35,351 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 07:50:35,351 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 07:50:35,352 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 07:50:35,352 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 07:50:35,352 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 07:50:35,373 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 07:50:35,373 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 07:50:35,374 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 07:50:35,375 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 07:50:35,375 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 07:50:35,375 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 07:50:35,377 [app.py:register_static_file_handler()] - Registering static file: (/server/files/config/(.*)) /moonraker/config
+2020-10-26 07:50:35,379 [file_manager.py:_update_file_list()] - Updating File List <config>...
+2020-10-26 07:50:35,379 [moonraker.py:load_plugin()] - Plugin (file_manager) loaded
+2020-10-26 07:50:35,382 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /machine/reboot - Websocket: machine.reboot
+2020-10-26 07:50:35,383 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /machine/shutdown - Websocket: machine.shutdown
+2020-10-26 07:50:35,383 [moonraker.py:load_plugin()] - Plugin (machine) loaded
+2020-10-26 07:50:35,389 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/temperature_store - Websocket: server.temperature_store
+2020-10-26 07:50:35,390 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/gcode_store - Websocket: server.gcode_store
+2020-10-26 07:50:35,390 [moonraker.py:load_plugin()] - Plugin (data_store) loaded
+2020-10-26 07:50:35,396 [moonraker.py:load_plugin()] - Plugin (shell_command) loaded
+2020-10-26 07:50:35,396 [moonraker.py:start()] - Starting Moonraker on (0.0.0.0, 7125), Hostname: bb17f8db02a5
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 08:04:30,504 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 08:04:30,515 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 08:04:30,516 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 08:04:30,520 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /logs/moonraker.log
+2020-10-26 08:04:30,521 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 08:04:30,521 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 08:04:30,522 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 08:04:30,522 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 08:04:30,530 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 08:04:30,530 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 08:04:30,531 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 08:04:30,532 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 08:04:30,532 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 08:04:30,533 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 08:04:30,533 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 08:04:30,553 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 08:04:30,553 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 08:04:30,554 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 08:04:30,554 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 08:04:30,555 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 08:04:30,555 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 08:04:30,556 [file_manager.py:register_directory()] - 
+Supplied path (/config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 08:04:30,556 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 08:04:30,557 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 08:04:30,557 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 10:07:09,694 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 10:07:09,705 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 10:07:09,706 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 10:07:09,709 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /logs/moonraker.log
+2020-10-26 10:07:09,711 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 10:07:09,711 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 10:07:09,712 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 10:07:09,712 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 10:07:09,720 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 10:07:09,721 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 10:07:09,721 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 10:07:09,722 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 10:07:09,722 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 10:07:09,723 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 10:07:09,723 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 10:07:09,743 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 10:07:09,744 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 10:07:09,744 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 10:07:09,745 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 10:07:09,745 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 10:07:09,745 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 10:07:09,747 [file_manager.py:register_directory()] - 
+Supplied path (/config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 10:07:09,747 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 10:07:09,747 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 10:07:09,748 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 10:07:53,808 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 10:07:53,819 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 10:07:53,822 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /logs/moonraker.log
+2020-10-26 10:07:53,824 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 10:07:53,824 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 10:07:53,825 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 10:07:53,825 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 10:07:53,833 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 10:07:53,834 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 10:07:53,834 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 10:07:53,835 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 10:07:53,835 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 10:07:53,836 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 10:07:53,836 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 10:07:53,856 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 10:07:53,857 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 10:07:53,858 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 10:07:53,858 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 10:07:53,859 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 10:07:53,859 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 10:07:53,860 [file_manager.py:register_directory()] - 
+Supplied path (/config) for (config) not valid. Please
+check that the path exists and is a subfolder in the HOME
+directory. Note that the path may not BE the home directory.
+2020-10-26 10:07:53,860 [moonraker.py:load_plugin()] - Unable to load plugin (file_manager)
+Traceback (most recent call last):
+  File "moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+2020-10-26 10:07:53,860 [moonraker.py:main()] - Moonraker Error
+Traceback (most recent call last):
+  File "moonraker/moonraker.py", line 129, in load_plugin
+    plugin = load_func(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 572, in load_plugin
+    return FileManager(config)
+  File "/moonraker/moonraker/moonraker/plugins/file_manager.py", line 52, in __init__
+    raise config.error(
+confighelper.ConfigError: Option 'config_path' is not a valid directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "moonraker/moonraker.py", line 516, in main
+    server = Server(cmd_line_args)
+  File "moonraker/moonraker.py", line 89, in __init__
+    self._load_plugins(config)
+  File "moonraker/moonraker.py", line 104, in _load_plugins
+    self.load_plugin(config, plugin)
+  File "moonraker/moonraker.py", line 134, in load_plugin
+    raise ServerError(msg)
+utils.ServerError: Unable to load plugin (file_manager)
+2020-10-26 10:07:53,861 [moonraker.py:main()] - Server Shutdown
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 10:12:10,773 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 10:12:10,782 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 10:12:10,784 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 10:12:10,787 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /logs/moonraker.log
+2020-10-26 10:12:10,788 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 10:12:10,789 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 10:12:10,790 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 10:12:10,790 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 10:12:10,797 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 10:12:10,798 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 10:12:10,799 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 10:12:10,799 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 10:12:10,800 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 10:12:10,800 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 10:12:10,800 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 10:12:10,820 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 10:12:10,821 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 10:12:10,822 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 10:12:10,822 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 10:12:10,823 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 10:12:10,823 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 10:12:10,824 [app.py:register_static_file_handler()] - Registering static file: (/server/files/config/(.*)) /moonraker/config
+2020-10-26 10:12:10,825 [file_manager.py:_update_file_list()] - Updating File List <config>...
+2020-10-26 10:12:10,826 [moonraker.py:load_plugin()] - Plugin (file_manager) loaded
+2020-10-26 10:12:10,829 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /machine/reboot - Websocket: machine.reboot
+2020-10-26 10:12:10,829 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /machine/shutdown - Websocket: machine.shutdown
+2020-10-26 10:12:10,829 [moonraker.py:load_plugin()] - Plugin (machine) loaded
+2020-10-26 10:12:10,835 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/temperature_store - Websocket: server.temperature_store
+2020-10-26 10:12:10,835 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/gcode_store - Websocket: server.gcode_store
+2020-10-26 10:12:10,835 [moonraker.py:load_plugin()] - Plugin (data_store) loaded
+2020-10-26 10:12:10,841 [moonraker.py:load_plugin()] - Plugin (shell_command) loaded
+2020-10-26 10:12:10,841 [moonraker.py:start()] - Starting Moonraker on (0.0.0.0, 7125), Hostname: a08974d6ed50
+Moonraker Log Start...
+Git Version: ?
+================================================================================
+2020-10-26 10:18:08,418 [utils.py:get_software_version()] - Error runing git describe
+Traceback (most recent call last):
+  File "/moonraker/moonraker/moonraker/utils.py", line 54, in get_software_version
+    process = subprocess.Popen(prog, stdout=subprocess.PIPE,
+  File "/usr/lib/python3.8/subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'git'
+2020-10-26 10:18:08,428 [authorization.py:_read_api_key()] - No API Key file found, creating new one at:
+/moonraker/.moonraker_api_key
+2020-10-26 10:18:08,430 [authorization.py:__init__()] - Authorization Configuration Loaded
+Auth Enabled: False
+Trusted Clients:
+127.0.0.1
+192.168.1.0/24
+2020-10-26 10:18:08,433 [app.py:register_static_file_handler()] - Registering static file: (/server/files/moonraker.log()) /logs/moonraker.log
+2020-10-26 10:18:08,434 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST) /access/api_key
+2020-10-26 10:18:08,435 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /access/oneshot_token
+2020-10-26 10:18:08,436 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/info - Websocket: server.info
+2020-10-26 10:18:08,436 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/restart - Websocket: server.restart
+2020-10-26 10:18:08,444 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/pause - Websocket: printer.print.pause
+2020-10-26 10:18:08,444 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/resume - Websocket: printer.print.resume
+2020-10-26 10:18:08,445 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/cancel - Websocket: printer.print.cancel
+2020-10-26 10:18:08,445 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/print/start - Websocket: printer.print.start
+2020-10-26 10:18:08,446 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/restart - Websocket: printer.restart
+2020-10-26 10:18:08,446 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /printer/firmware_restart - Websocket: printer.firmware_restart
+2020-10-26 10:18:08,447 [moonraker.py:load_plugin()] - Plugin (klippy_apis) loaded
+2020-10-26 10:18:08,467 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/list - Websocket: server.files.list
+2020-10-26 10:18:08,467 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/files/metadata - Websocket: server.files.metadata
+2020-10-26 10:18:08,468 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET POST DELETE) /server/files/directory - Websocket: server.files.get_directory, server.files.post_directory, server.files.delete_directory
+2020-10-26 10:18:08,469 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/move - Websocket: server.files.move
+2020-10-26 10:18:08,469 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /server/files/copy - Websocket: server.files.copy
+2020-10-26 10:18:08,469 [app.py:register_local_handler()] - Registering local endpoint - Websocket: server.files.delete_file
+2020-10-26 10:18:08,471 [app.py:register_static_file_handler()] - Registering static file: (/server/files/config/(.*)) /moonraker/config
+2020-10-26 10:18:08,472 [file_manager.py:_update_file_list()] - Updating File List <config>...
+2020-10-26 10:18:08,473 [moonraker.py:load_plugin()] - Plugin (file_manager) loaded
+2020-10-26 10:18:08,475 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /machine/reboot - Websocket: machine.reboot
+2020-10-26 10:18:08,476 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (POST) /machine/shutdown - Websocket: machine.shutdown
+2020-10-26 10:18:08,476 [moonraker.py:load_plugin()] - Plugin (machine) loaded
+2020-10-26 10:18:08,481 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/temperature_store - Websocket: server.temperature_store
+2020-10-26 10:18:08,482 [app.py:register_local_handler()] - Registering local endpoint - HTTP: (GET) /server/gcode_store - Websocket: server.gcode_store
+2020-10-26 10:18:08,482 [moonraker.py:load_plugin()] - Plugin (data_store) loaded
+2020-10-26 10:18:08,488 [moonraker.py:load_plugin()] - Plugin (shell_command) loaded
+2020-10-26 10:18:08,488 [moonraker.py:start()] - Starting Moonraker on (0.0.0.0, 7125), Hostname: 8b2a3d6256f0

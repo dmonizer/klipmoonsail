@@ -1,0 +1,94 @@
+FROM alpine:latest
+USER root
+RUN apk --no-cache add wget sudo unzip git openrc 
+#RUN ln -sf /sbin/openrc-init /sbin/init
+# FROM: https://github.com/neeravkumar/dockerfiles/blob/master/alpine-openrc/Dockerfile
+# Tell openrc its running inside a container, till now that has meant LXC
+
+RUN    sed -i 's/#rc_sys=""/rc_sys="lxc"/g' /etc/rc.conf &&\
+# Tell openrc loopback and net are already there, since docker handles the networking
+    echo 'rc_provide="loopback net"' >> /etc/rc.conf &&\
+# no need for loggers
+    sed -i 's/^#\(rc_logger="YES"\)$/\1/' /etc/rc.conf &&\
+# can't get ttys unless you run the container in privileged mode
+    sed -i '/tty/d' /etc/inittab &&\
+# can't set hostname since docker sets it
+    sed -i 's/hostname $opts/# hostname $opts/g' /etc/init.d/hostname &&\
+# can't mount tmpfs since not privileged
+    sed -i 's/mount -t tmpfs/# mount -t tmpfs/g' /lib/rc/sh/init.sh &&\
+# can't do cgroups
+    sed -i 's/cgroup_add_service /# cgroup_add_service /g' /lib/rc/sh/openrc-run.sh &&\
+# clean apk cache
+    rm -rf /var/cache/apk/*
+
+RUN apk --no-cache add  dfu-util nginx \
+ py2-virtualenv python2-dev libffi-dev g++ make \
+ ncurses-dev \
+ libusb-dev \
+ avrdude gcc-avr binutils-avr avr-libc \
+ stm32flash dfu-util newlib-arm-none-eabi \
+ libusb \
+ --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+ --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
+ --repository=http://dl-cdn.alpinelinux.org/alpine/v3.10/main \
+ --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+
+RUN apk --no-cache add python3-dev  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+ --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main 
+
+
+RUN adduser -D -h /3d_print klipper 
+WORKDIR /3d_print
+USER klipper
+ARG HTTPS_PROXY
+RUN export https_proxy=$HTTPS_PROXY
+RUN git config --global http.proxy $HTTPS_PROXY
+RUN git clone --verbose https://github.com/KevinOConnor/klipper.git 
+RUN git clone --verbose https://github.com/Arksine/moonraker.git
+ENV PYTHON2DIR="/3d_print/klippy-env"
+ENV PYTHON3DIR="/3d_print/moonraker-env"
+ENV KLIPPER_SRCDIR="/3d_print/klipper"
+ENV MOONRAKER_SRCDIR="/3d_print/moonraker"
+RUN virtualenv -p python2 ${PYTHON2DIR}
+RUN ${PYTHON2DIR}/bin/pip install -r ${KLIPPER_SRCDIR}/scripts/klippy-requirements.txt
+RUN virtualenv -p python3 ${PYTHON3DIR}
+RUN ${PYTHON3DIR}/bin/pip install -r ${MOONRAKER_SRCDIR}/scripts/moonraker-requirements.txt
+USER root
+RUN cp "${KLIPPER_SRCDIR}/scripts/klipper-start.sh" /etc/init.d/klipper
+RUN cp "${MOONRAKER_SRCDIR}/scripts/moonraker-start.sh" /etc/init.d/moonraker
+RUN mkdir /etc/defaults
+RUN export RUNUSER=klipper
+RUN /bin/sh -c "cat >> /etc/defaults/klipper" <<EOF \
+# Configuration for /etc/init.d/klipper \
+KLIPPY_USER=$RUNUSER \ 
+KLIPPY_EXEC=${PYTHON2DIR}/bin/python \
+KLIPPY_ARGS="${SRCDIR}/klippy/klippy.py ${HOME}/printer.cfg -l /tmp/klippy.log" \
+EOF
+RUN /bin/sh -c "cat >> /etc/defaults/moonraker" <<EOF \
+MOONRAKER_USER=$RUNUSER \
+MOONRAKER_EXEC=${PYTHON3DIR}/bin/python \
+MOONRAKER_ARGS="${MOONRAKER_SRCDIR}/moonraker/moonraker.py" \
+EOF
+
+
+USER klipper
+RUN mkdir klipper_config && mkdir sdcard
+COPY printer.cfg ./
+COPY moonraker.cfg /3d_print
+COPY upstreams.conf /etc/nginx/conf.d/upstreams.conf 
+COPY common_vars.conf /etc/nginx/conf.d/common_vars.conf
+COPY mainsail /etc/nginx/sites-available/mainsail
+USER root
+RUN ln -s /etc/nginx/sites-available/mainsail /etc/nginx/mainsail.conf
+USER klipper
+RUN mkdir /3d_print/mainsail && cd /3d_print/mainsail 
+#RUN wget https://github.com/meteyou/mainsail/releases/download/v0.2.4/mainsail-beta-0.2.4.zip 
+COPY mainsail-beta-0.2.4.zip .
+RUN mv mainsail-beta-0.2.4.zip mainsail.zip 
+RUN unzip mainsail.zip && rm mainsail.zip
+COPY start.sh .
+#RUN chmod +x start.sh
+USER root
+
+CMD ["/usr/bin/nohup /sbin/init", "/bin/ash"]
+#ENTRYPOINT ["/bin/ash"]
