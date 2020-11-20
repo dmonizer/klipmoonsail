@@ -8,4 +8,4 @@ run ./buildstart.sh which will clone klipper and moonraker and download mainsaid
 edit runstart.sh and comment out docker build lines and klipper first run line, save and run it again.
 now klipper, moonraker and mainsail are running in docker (hopefully) and you can connect to your raspi:8080 with web browser.
 
-There is currently an issue that moonraker cannot connect to klippy, altho both can see the UDS - ideas/PRs welcomne.
+There is currently an issue that moonraker cannot connect to klippy, altho both can see the UDS - ideas/PRs welcome.
