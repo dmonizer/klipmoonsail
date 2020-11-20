@@ -9,8 +9,12 @@ RUN apt install -y\
  stm32flash libnewlib-arm-none-eabi \
  gcc-arm-none-eabi binutils-arm-none-eabi libusb-1.0
 
-
-RUN adduser klipper -q --disabled-password --home /klipper
+RUN mkdir /klipper
+ARG UID
+ARG GID
+RUN groupadd -g ${GID} 3dprinters
+RUN useradd klipper --base-dir / -u ${UID} -g ${GID}
+RUN chown klipper:3dprinters /klipper
 WORKDIR /klipper
 USER klipper
 COPY klipper ./
@@ -22,5 +26,7 @@ RUN ${PYTHON2DIR}/bin/pip install -r ${KLIPPER_SRCDIR}/scripts/klippy-requiremen
 
 COPY start-klipper.sh .
 USER root 
+RUN addgroup klipper dialout
+RUN chown -R klipper:3dprinters .
 RUN chmod +x start-klipper.sh
 ENTRYPOINT ["/klipper/start-klipper.sh"]
