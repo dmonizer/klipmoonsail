@@ -1,3 +1,2 @@
 #!/bin/sh
-cd moonraker/
-/moonraker/moonraker-env/bin/python moonraker/moonraker.py -l /logs/moonraker.log 
+/moonraker/moonraker-env/bin/python /moonraker/moonraker/moonraker.py -l /logs/moonraker.log 
