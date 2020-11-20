@@ -17,12 +17,12 @@ BUILD_ARGS="--build-arg UID=$USERID --build-arg GID=$GROUPID"
 &&	unzip mainsail_docker/mainsail.zip -d mainsail_docker/mainsail
  
 docker build $BUILD_ARGS ./klipper_docker -t klipper
-#docker build $BUILD_ARGS ./moonraker_docker -t moonraker
-#docker build ./mainsail_docker -t mainsail
+docker build $BUILD_ARGS ./moonraker_docker -t moonraker
+docker build ./mainsail_docker -t mainsail
 
 #docker network create --subnet=172.18.0.0/26 klipmoonsail
 #run first-time config for klipper. comment out next line for subsequent runs
-#docker run -it --rm --name klipper-build $PRINTER_MOUNT --entrypoint /bin/bash klipper
+docker run -it --rm --name klipper-build $PRINTER_MOUNT --entrypoint /bin/bash klipper
 #start moonraker
 echo -n Starting klipper
 docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT --net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper 
