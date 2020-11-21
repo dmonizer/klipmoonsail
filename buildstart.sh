@@ -32,58 +32,57 @@ set_variables() {
 check_and_download() {
 	echo -n "checking for klipper source ..."
 	[ ! -d "klipper_docker/klipper" ] \
-		&& echo -n "not present, cloning..." \ 
-		#&& git clone https://github.com/KevinOConnor/klipper.git klipper_docker/klipper>/dev/null 
+		&& echo -n "not present, cloning..." && git clone https://github.com/KevinOConnor/klipper.git klipper_docker/klipper>/dev/null 
 	echo "done"
 
 	echo -n "checking for moonraker source ..."
 	[ ! -d "moonraker_docker/moonraker" ] \
 		&&  echo -n "not present, cloning..." \
-		#&& git clone https://github.com/Arksine/moonraker.git moonraker_docker/moonraker>/dev/null 
+		&& git clone https://github.com/Arksine/moonraker.git moonraker_docker/moonraker>/dev/null 
 	echo "done"
 
 	echo -n "checking for moonraker source ..."
 	[ ! -d "mainsail_docker/mainsail" ] \
 		&&  echo -n "not present, downloading..." \
-		#&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail-beta-$MAINSAIL_RELEASE.zip >/dev/null\
-		#&& echo -n "... unzipping ..." \
-		#&& unzip mainsail_docker/mainsail.zip -d mainsail_docker/mainsail>/dev/null
+		&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail-beta-$MAINSAIL_RELEASE.zip >/dev/null\
+		&& echo -n "... unzipping ..." \
+		&& unzip mainsail_docker/mainsail.zip -d mainsail_docker/mainsail>/dev/null
 	echo "done"
 }
 
 build_klipper() { 
 	echo "Building klipper"
-	echo docker build $BUILD_ARGS ./klipper_docker -t klipper
+	docker build $BUILD_ARGS ./klipper_docker -t klipper
 }
 
 build_moonraker() { 
 	echo "building moonraker"
-	echo docker build $BUILD_ARGS ./moonraker_docker -t moonraker
+	docker build $BUILD_ARGS ./moonraker_docker -t moonraker
 }
 
 build_mainsail() { 
 	echo "Building mainsail:"
-	echo docker build ./mainsail_docker -t mainsail
+	docker build ./mainsail_docker -t mainsail
 }
 
 create_network(){
-	echo docker network create --subnet=172.18.0.0/26 klipmoonsail
+	docker network create --subnet=172.18.0.0/26 klipmoonsail
 }
 
 klipper_init() {
 	echo "running only klipper for first-time config and flashing" 
-	echo docker run -it --rm --name klipper-build $PRINTER_MOUNT --entrypoint /bin/bash klipper
+	docker run -it --rm --name klipper-build $PRINTER_MOUNT --entrypoint /bin/bash klipper
 }
 
 start_klipper() {
 	echo -n "Starting klipper ... "
-	echo docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
+	docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
 		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper 
 	echo done
 }
 start_moonraker() {
 	echo -n "Starting moonraker ... "
-	echo docker run --rm -d --name moonraker \
+	docker run --rm -d --name moonraker \
 		$USER_ARGS $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $MOONRAKER_MOUNT \
 		--net klipmoonsail  --hostname apiserver.local --ip 172.18.0.22 moonraker 
 	echo done
@@ -91,7 +90,7 @@ start_moonraker() {
 
 start_mainsail() {
 	echo -n "Starting mainsail ... "
-	#docker run --rm -d --name mainsail -p 8080:80 --net klipmoonsail  --hostname mainsail.local --ip 172.18.0.21  mainsail 
+	docker run --rm -d --name mainsail -p 8080:80 --net klipmoonsail  --hostname mainsail.local --ip 172.18.0.21  mainsail 
 	echo done
 }	
 
@@ -161,6 +160,7 @@ action_init() {
 
 action_stop(){
 	for i in "klipper" "moonraker" "mainsail"; do
+		echo -n "stopping $1: "
 		docker stop $i
 	done
 }
