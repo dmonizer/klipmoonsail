@@ -1,10 +1,11 @@
 #!/bin/bash
 
 PRINTER_DEVICE="/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0"
-MAINSAIL_RELEASE="0.2.6"
+MAINSAIL_RELEASE="1.1.0"
 
 ########### end of configuration ##################333
-ACTIONS=("init" "build" "run" "stop" "restart" "logs")
+
+ACTIONS=("init" "refresh" "build" "run" "stop" "restart" "logs")
 
 show_usage() {
 	echo "usage: $0 <action> [parameters]" 
@@ -29,6 +30,27 @@ set_variables() {
 	BUILD_ARGS="--build-arg UID=$USERID --build-arg GID=$GROUPID"
 }
 
+check_and_update(){	
+	echo -n "checking for klipper source ..."
+	[ -d "klipper_docker/klipper" ] \
+		&& echo -n "present, refreshing..." && git pull>/dev/null 
+	echo "done"
+
+	echo -n "checking for moonraker source ..."
+	[ -d "moonraker_docker/moonraker" ] \
+		&&  echo -n "present, refreshing..." \
+		&& git pull>/dev/null 
+	echo "done"
+
+	echo -n "checking for mainsail source ..."
+	[ -d "mainsail_docker/mainsail" ] \
+		&&  echo -n "present, refreshing..." \
+		&& wget -q -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail.zip >/dev/null\
+		&& echo -n "... unzipping ..." \
+		&& unzip -d mainsail_docker/mainsail -fo mainsail_docker/mainsail.zip >/dev/null
+	echo "done"
+}
+
 check_and_download() {
 	echo -n "checking for klipper source ..."
 	[ ! -d "klipper_docker/klipper" ] \
@@ -41,12 +63,12 @@ check_and_download() {
 		&& git clone https://github.com/Arksine/moonraker.git moonraker_docker/moonraker>/dev/null 
 	echo "done"
 
-	echo -n "checking for moonraker source ..."
+	echo -n "checking for mainsail source ..."
 	[ ! -d "mainsail_docker/mainsail" ] \
 		&&  echo -n "not present, downloading..." \
-		&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail-beta-$MAINSAIL_RELEASE.zip >/dev/null\
+		&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail.zip >/dev/null\
 		&& echo -n "... unzipping ..." \
-		&& unzip mainsail_docker/mainsail.zip -d mainsail_docker/mainsail>/dev/null
+		&& unzip -d mainsail_docker/mainsail -fo mainsail_docker/mainsail.zip >/dev/null
 	echo "done"
 }
 
@@ -183,7 +205,9 @@ PARAMETERS=$*
 if [[ " ${ACTIONS[@]} " =~ " ${ACTION} " ]]; then
 	
 	set_variables
-	
+	if [[ "refresh" == "$ACTION" ]]; then
+		check_and_update
+	fi
 	if [[ "init" == "$ACTION" ]]; then
 		action_init $PARAMETERS
 	fi
