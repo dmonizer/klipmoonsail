@@ -5,7 +5,7 @@ MAINSAIL_RELEASE="1.1.0"
 
 ########### end of configuration ##################333
 
-ACTIONS=("init" "refresh" "build" "run" "stop" "restart" "logs")
+ACTIONS=("init" "refresh" "build" "klipper_init" "run" "stop" "restart" "logs")
 
 show_usage() {
 	echo "usage: $0 <action> [parameters]" 
@@ -98,8 +98,10 @@ klipper_init() {
 
 start_klipper() {
 	echo -n "Starting klipper ... "
-	docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
-		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper 
+	COMMAND="docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
+		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper "
+	echo $COMMAND
+	$COMMAND
 	echo done
 }
 start_moonraker() {
@@ -217,6 +219,10 @@ if [[ " ${ACTIONS[@]} " =~ " ${ACTION} " ]]; then
 	if [[ "build" == "$ACTION" ]]; then
 		action_build $PARAMETERS
 	fi
+	if [[ "klipper_init" == "$ACTION" ]]; then
+		action_init $PARAMETERS
+	fi
+
 	if [[ "stop" == "$ACTION" ]]; then
 		action_stop
 	fi

@@ -29,4 +29,4 @@ USER root
 RUN addgroup klipper dialout
 RUN chown -R klipper:3dprinters .
 RUN chmod +x start-klipper.sh
-ENTRYPOINT ["/klipper/start-klipper.sh"]
+CMD ["/klipper/start-klipper.sh"]
