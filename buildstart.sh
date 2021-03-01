@@ -94,7 +94,7 @@ create_network(){
 
 klipper_init() {
 	echo "running only klipper for first-time config and flashing" 
-	docker run -it --rm --name klipper-build $PRINTER_ACCESS --entrypoint /bin/bash klipper
+	eval "docker run -it --rm --name klipper-build $PRINTER_ACCESS klipper /bin/bash"
 }
 
 start_klipper() {
