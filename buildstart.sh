@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PRINTER_DEVICE="/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0"
-MAINSAIL_RELEASE="0.2.6"
+MAINSAIL_RELEASE="1.1.0"
 
 ########### end of configuration ##################333
-ACTIONS=("init" "build" "run" "stop" "restart" "logs")
+
+ACTIONS=("init" "refresh" "build" "klipper_init" "run" "stop" "restart" "logs")
 
 show_usage() {
 	echo "usage: $0 <action> [parameters]" 
@@ -17,16 +17,39 @@ show_usage() {
 }
 
 set_variables() {
+	PRINTER_CGROUP="'c 188:* rmw'"
+	WEBCAM_CGROUP="'c 81:* rmw'"
+	PRINTER_ACCESS="-v /dev:/dev --device-cgroup-rule=$PRINTER_CGROUP --device-cgroup-rule=$WEBCAM_CGROUP"
 	LOG_MOUNT="--mount type=bind,source=$(pwd)/runtime/logs,target=/logs"
 	SDCARD_MOUNT="--mount type=bind,source=$(pwd)/runtime/sdcard,target=/sdcard"
 	TMP_MOUNT="--mount type=bind,source=$(pwd)/runtime/tmp,target=/tmp"
 	MOONRAKER_MOUNT="--mount type=bind,source=$(pwd)/runtime/config,target=/moonraker/config"
 	KLIPPER_MOUNT="--mount type=bind,source=$(pwd)/runtime/config,target=/klipper/config"
-	PRINTER_MOUNT="--device=$PRINTER_DEVICE"
 	USERID=$(id -u)
 	GROUPID=$(id -g)
 	USER_ARGS="--user $UID:$GID"
 	BUILD_ARGS="--build-arg UID=$USERID --build-arg GID=$GROUPID"
+}
+
+check_and_update(){	
+	echo -n "checking for klipper source ..."
+	[ -d "klipper_docker/klipper" ] \
+		&& echo -n "present, refreshing..." && git pull>/dev/null 
+	echo "done"
+
+	echo -n "checking for moonraker source ..."
+	[ -d "moonraker_docker/moonraker" ] \
+		&&  echo -n "present, refreshing..." \
+		&& git pull>/dev/null 
+	echo "done"
+
+	echo -n "checking for mainsail source ..."
+	[ -d "mainsail_docker/mainsail" ] \
+		&&  echo -n "present, refreshing..." \
+		&& wget -q -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail.zip >/dev/null\
+		&& echo -n "... unzipping ..." \
+		&& unzip -d mainsail_docker/mainsail -fo mainsail_docker/mainsail.zip >/dev/null
+	echo "done"
 }
 
 check_and_download() {
@@ -41,12 +64,12 @@ check_and_download() {
 		&& git clone https://github.com/Arksine/moonraker.git moonraker_docker/moonraker>/dev/null 
 	echo "done"
 
-	echo -n "checking for moonraker source ..."
+	echo -n "checking for mainsail source ..."
 	[ ! -d "mainsail_docker/mainsail" ] \
 		&&  echo -n "not present, downloading..." \
-		&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail-beta-$MAINSAIL_RELEASE.zip >/dev/null\
+		&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail.zip >/dev/null\
 		&& echo -n "... unzipping ..." \
-		&& unzip mainsail_docker/mainsail.zip -d mainsail_docker/mainsail>/dev/null
+		&& unzip -d mainsail_docker/mainsail -fo mainsail_docker/mainsail.zip >/dev/null
 	echo "done"
 }
 
@@ -71,13 +94,15 @@ create_network(){
 
 klipper_init() {
 	echo "running only klipper for first-time config and flashing" 
-	docker run -it --rm --name klipper-build $PRINTER_MOUNT --entrypoint /bin/bash klipper
+	eval "docker run -it --rm --name klipper-build $PRINTER_ACCESS klipper /bin/bash"
 }
 
 start_klipper() {
 	echo -n "Starting klipper ... "
-	docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
-		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper 
+	COMMAND="docker run --rm -d --name klipper $PRINTER_ACCESS $USER_ARGS $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
+		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper"
+	echo $COMMAND
+	eval "$COMMAND"
 	echo done
 }
 start_moonraker() {
@@ -183,7 +208,9 @@ PARAMETERS=$*
 if [[ " ${ACTIONS[@]} " =~ " ${ACTION} " ]]; then
 	
 	set_variables
-	
+	if [[ "refresh" == "$ACTION" ]]; then
+		check_and_update
+	fi
 	if [[ "init" == "$ACTION" ]]; then
 		action_init $PARAMETERS
 	fi
@@ -193,6 +220,10 @@ if [[ " ${ACTIONS[@]} " =~ " ${ACTION} " ]]; then
 	if [[ "build" == "$ACTION" ]]; then
 		action_build $PARAMETERS
 	fi
+	if [[ "klipper_init" == "$ACTION" ]]; then
+		klipper_init $PARAMETERS
+	fi
+
 	if [[ "stop" == "$ACTION" ]]; then
 		action_stop
 	fi
