@@ -12,4 +12,4 @@ now klipper, moonraker and mainsail are running in docker (hopefully) and you ca
 to stop, use "./buildstart.sh stop"
 to restart, "./buildstart.sh restart"
 
-issues, PRs welcome.
+issues, PRs, stars :) welcome.
