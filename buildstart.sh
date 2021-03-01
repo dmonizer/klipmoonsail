@@ -1,6 +1,5 @@
 #!/bin/bash
 
-PRINTER_DEVICE="/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0"
 MAINSAIL_RELEASE="1.1.0"
 
 ########### end of configuration ##################333
@@ -18,12 +17,14 @@ show_usage() {
 }
 
 set_variables() {
+	PRINTER_CGROUP="'c 188:* rmw'"
+	WEBCAM_CGROUP="'c 81:* rmw'"
+	PRINTER_ACCESS="-v /dev:/dev --device-cgroup-rule=$PRINTER_CGROUP --device-cgroup-rule=$WEBCAM_CGROUP"
 	LOG_MOUNT="--mount type=bind,source=$(pwd)/runtime/logs,target=/logs"
 	SDCARD_MOUNT="--mount type=bind,source=$(pwd)/runtime/sdcard,target=/sdcard"
 	TMP_MOUNT="--mount type=bind,source=$(pwd)/runtime/tmp,target=/tmp"
 	MOONRAKER_MOUNT="--mount type=bind,source=$(pwd)/runtime/config,target=/moonraker/config"
 	KLIPPER_MOUNT="--mount type=bind,source=$(pwd)/runtime/config,target=/klipper/config"
-	PRINTER_MOUNT="--device=$PRINTER_DEVICE"
 	USERID=$(id -u)
 	GROUPID=$(id -g)
 	USER_ARGS="--user $UID:$GID"
@@ -93,15 +94,15 @@ create_network(){
 
 klipper_init() {
 	echo "running only klipper for first-time config and flashing" 
-	docker run -it --rm --name klipper-build $PRINTER_MOUNT --entrypoint /bin/bash klipper
+	docker run -it --rm --name klipper-build $PRINTER_ACCESS --entrypoint /bin/bash klipper
 }
 
 start_klipper() {
 	echo -n "Starting klipper ... "
-	COMMAND="docker run --rm -d --name klipper $USER_ARGS $PRINTER_MOUNT $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
-		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper "
+	COMMAND="docker run --rm -d --name klipper $PRINTER_ACCESS $USER_ARGS $LOG_MOUNT $TMP_MOUNT $SDCARD_MOUNT $KLIPPER_MOUNT \
+		--net klipmoonsail --hostname klipper.local --ip 172.18.0.23 klipper"
 	echo $COMMAND
-	$COMMAND
+	eval "$COMMAND"
 	echo done
 }
 start_moonraker() {
@@ -220,7 +221,7 @@ if [[ " ${ACTIONS[@]} " =~ " ${ACTION} " ]]; then
 		action_build $PARAMETERS
 	fi
 	if [[ "klipper_init" == "$ACTION" ]]; then
-		action_init $PARAMETERS
+		klipper_init $PARAMETERS
 	fi
 
 	if [[ "stop" == "$ACTION" ]]; then
