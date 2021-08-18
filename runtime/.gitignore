@@ -1,3 +1,7 @@
 logs/*
 sdcard/*
 tmp/*
+
+!logs/.keep
+!sdcard/.keep
+!tmp/.keep
