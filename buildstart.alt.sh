@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAINSAIL_RELEASE="1.1.0"
+MAINSAIL_RELEASE="1.16.2"
 
 ########### end of configuration ##################333
 
@@ -46,7 +46,7 @@ check_and_update(){
 	echo -n "checking for mainsail source ..."
 	[ -d "mainsail_docker/mainsail" ] \
 		&&  echo -n "present, refreshing..." \
-		&& wget -q -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail.zip >/dev/null\
+		&& wget -q -O mainsail_docker/mainsail.zip https://github.com/cadriel/fluidd/releases/download/v$MAINSAIL_RELEASE/fluidd.zip >/dev/null\
 		&& echo -n "... unzipping ..." \
 		&& unzip -d mainsail_docker/mainsail -fo mainsail_docker/mainsail.zip >/dev/null
 	echo "done"
@@ -67,7 +67,7 @@ check_and_download() {
 	echo -n "checking for mainsail source ..."
 	[ ! -d "mainsail_docker/mainsail" ] \
 		&&  echo -n "not present, downloading..." \
-		&& wget -O mainsail_docker/mainsail.zip https://github.com/meteyou/mainsail/releases/download/v$MAINSAIL_RELEASE/mainsail.zip >/dev/null\
+		&& wget -O mainsail_docker/mainsail.zip https://github.com/cadriel/fluidd/releases/download/v$MAINSAIL_RELEASE/fluidd.zip >/dev/null\
 		&& echo -n "... unzipping ..." \
 		&& unzip -d mainsail_docker/mainsail -fo mainsail_docker/mainsail.zip >/dev/null
 	echo "done"
@@ -240,3 +240,4 @@ fi
 
 
 echo "all done"
+

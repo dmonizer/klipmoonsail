@@ -1,8 +1,9 @@
 # klipmoonsail
 
 intended to build and run dockerized klipper, moonraker and moonsail on raspi (which has direct usb connection to your 3d printer).
+Still, it will work on any system.
 
-1) edit buildstart.sh script and make sure mainsail version is correct
+1) edit buildstart.sh script and make sure mainsail version is correct. An separate buildstart.alt.sh has been added for fluidd.
 2) put your klipper config to runtime/config as printer.cfg (beware of resent changes in klipper, which renders all old menu customizations broken). There is sample config file for AnetA8 included for reference if needed.
 3) run ```./buildstart.sh init``` which will clone klipper and moonraker and download mainsail release, build docker images and run klipper for the first time interactively, so you can configure and flash the printer according to klipper docs (up to flashing)
 4) run ```buildstart.sh run``` to run 

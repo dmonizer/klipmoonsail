@@ -1,6 +1,6 @@
 FROM python:3
 EXPOSE 7125
-RUN apt update && apt install -y python-virtualenv virtualenv 
+RUN apt update && apt install -y python3-virtualenv virtualenv libsodium*
 ARG UID
 ARG GID
 RUN groupadd -g ${GID} 3dprinters
