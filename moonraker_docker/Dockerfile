@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10.0b2
 EXPOSE 7125
 RUN apt update && apt install -y python-virtualenv virtualenv 
 ARG UID
