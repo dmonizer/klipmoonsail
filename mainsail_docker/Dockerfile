@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:stable
 COPY nginx/ /etc/nginx/
 RUN rm /etc/nginx/conf.d/default.conf
 COPY mainsail /usr/share/nginx/html
