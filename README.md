@@ -1,3 +1,5 @@
+# this is not maintained
+
 # klipmoonsail
 
 intended to build and run dockerized klipper, moonraker and moonsail on raspi (which has direct usb connection to your 3d printer).
